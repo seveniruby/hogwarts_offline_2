@@ -25,6 +25,7 @@ public class TestIOS {
             System.out.println(e.getText());
             System.out.println(e.getTagName());
         }
+
     }
 
     @Test
@@ -43,4 +44,19 @@ public class TestIOS {
         driver.findElementByAccessibilityId("Buttons").click();
         System.out.println(driver.findElementsByXPath("//*[contains(@type, 'Button')]"));
     }
+
+    @Test
+    public void testGrid() throws MalformedURLException {
+        DesiredCapabilities caps=new DesiredCapabilities();
+        caps.setCapability("platformName", "android");
+        caps.setCapability("platformVersion", "6.0");
+        caps.setCapability("deviceName", "dd");
+        caps.setCapability("appPackage", "com.xueqiu.android");
+        caps.setCapability("appActivity", "view.WelcomeActivityAlias");
+
+        AppiumDriver driver=new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"), caps);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        System.out.println(driver.getPageSource());
+    }
+
 }
