@@ -17,12 +17,13 @@ public class TestPageObject {
     static AndroidDriver<AndroidElement> driver;
     @BeforeClass
     public static void beforeClass() throws MalformedURLException {
+        //System.out.println(System.getenv("deviceName"));
         DesiredCapabilities caps=new DesiredCapabilities();
         caps.setCapability("", "");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("deviceName", "ddd");
+        capabilities.setCapability("deviceName", "xx");
         capabilities.setCapability("appPackage", "com.xueqiu.android");
         capabilities.setCapability("appActivity", ".view.WelcomeActivityAlias");
         capabilities.setCapability("automationName", "appium");
@@ -37,10 +38,10 @@ public class TestPageObject {
         Welcome welcome=new Welcome();
         PageFactory.initElements(driver, welcome);
 
-        welcome.click跳过();
-        Thread.sleep(2000);
+        welcome.跳过欢迎页();
+        main.自选.click();
+
         //todo: 定位需要自己定制，而不能照搬原有的注解，不然动态加载就会引发不稳定
-        main.enter自选();
     }
 }
 

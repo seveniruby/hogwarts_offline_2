@@ -153,6 +153,8 @@ public class TestXueQiuDemo {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         Thread.sleep(5000);
         driver.findElementByAccessibilityId("Views").click();
+        //find locator action
+        //findRich("Views")
         Thread.sleep(2000);
         (new TouchAction(driver)).press(748, 2220).moveTo(748, 500).release().perform();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='Popup Menu']"))).click();
