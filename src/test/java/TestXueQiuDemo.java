@@ -6,6 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.touch.TouchActions;
@@ -14,6 +15,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tags.冒烟测试;
+import tags.行情;
 
 import java.io.File;
 import java.io.IOException;
@@ -177,6 +180,7 @@ public class TestXueQiuDemo {
 
     }
 
+    @Category({冒烟测试.class, 行情.class})
     @Test
     public void testscreenshot() throws IOException {
         driver.findElementByAccessibilityId("Views").click();

@@ -1,31 +1,50 @@
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.openqa.selenium.WebElement;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 import pages.MainActivity;
 import pages.Welcome;
-import tags.冒烟测试;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class TestPageObject {
+@RunWith(Parameterized.class)
+public class TestPageObjectData {
     static AndroidDriver<AndroidElement> driver;
-    @BeforeClass
-    public static void beforeClass() throws MalformedURLException {
+
+    @Parameterized.Parameters
+    public static List<String[]> data(){
+        return Arrays.asList(new String[][]{
+                {"b", "8.0"},
+                {"c", "6.0"}
+        });
+        //todo: from file xml excel
+    }
+    @Parameterized.Parameter
+    public String deviceName;
+    @Parameterized.Parameter(1)
+    public String version;
+
+    @Before
+    public void before() throws MalformedURLException {
+        System.out.println(deviceName);
+        System.out.println(version);
         //System.out.println(System.getenv("deviceName"));
         DesiredCapabilities caps=new DesiredCapabilities();
         caps.setCapability("", "");
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("deviceName", "xx");
+        capabilities.setCapability("platformVersion", version);
+        capabilities.setCapability("deviceName", deviceName);
         capabilities.setCapability("appPackage", "com.xueqiu.android");
         capabilities.setCapability("appActivity", ".view.WelcomeActivityAlias");
         capabilities.setCapability("automationName", "appium");
@@ -33,7 +52,6 @@ public class TestPageObject {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
-    @Category(冒烟测试.class)
     @Test
     public void testPageObject() throws InterruptedException {
         MainActivity main=new MainActivity();
@@ -41,8 +59,8 @@ public class TestPageObject {
         Welcome welcome=new Welcome();
         PageFactory.initElements(driver, welcome);
 
-        welcome.跳过欢迎页();
-        main.自选.click();
+        //welcome.跳过欢迎页();
+        //main.自选.click();
 
         //todo: 定位需要自己定制，而不能照搬原有的注解，不然动态加载就会引发不稳定
     }

@@ -15,8 +15,9 @@ public class MainActivity {
     @FindBy(xpath = "//*[@text='动态']")
     WebElement 动态;
 
+
     public void enter自选() throws InterruptedException {
-        //Thread.sleep(2000);
+        Thread.sleep(2000);
         自选.click();
     }
 }
