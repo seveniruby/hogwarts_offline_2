@@ -1,14 +1,13 @@
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
-import pages.MainActivity;
-import pages.Welcome;
+import pages.xueqiu.MainActivity;
+import pages.xueqiu.Welcome;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,7 +22,7 @@ public class TestPageObjectData {
     @Parameterized.Parameters
     public static List<String[]> data(){
         return Arrays.asList(new String[][]{
-                {"b", "8.0"},
+ //               {"b", "8.0"},
                 {"c", "6.0"}
         });
         //todo: from file xml excel
@@ -35,6 +34,7 @@ public class TestPageObjectData {
 
     @Before
     public void before() throws MalformedURLException {
+        System.setProperty("webdriver.http.factory", "apache");
         System.out.println(deviceName);
         System.out.println(version);
         //System.out.println(System.getenv("deviceName"));
@@ -54,13 +54,12 @@ public class TestPageObjectData {
     }
     @Test
     public void testPageObject() throws InterruptedException {
-        MainActivity main=new MainActivity();
-        PageFactory.initElements(driver, main);
+        MainActivity main=new MainActivity(driver);
         Welcome welcome=new Welcome();
+        driver.findElementById("cancel").click();
         PageFactory.initElements(driver, welcome);
-
-        //welcome.跳过欢迎页();
-        //main.自选.click();
+        System.out.println(driver.getPageSource());
+        main.自选.click();
 
         //todo: 定位需要自己定制，而不能照搬原有的注解，不然动态加载就会引发不稳定
     }

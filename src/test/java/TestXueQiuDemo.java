@@ -60,23 +60,6 @@ public class TestXueQiuDemo {
     }
 
 
-    @BeforeClass
-    public static void beforeApi() throws MalformedURLException {
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("deviceName", "iPhone 6");
-        capabilities.setCapability("appPackage", "io.appium.android.apis");
-        capabilities.setCapability("appActivity", ".ApiDemos");
-        //capabilities.setCapability("automationName", "uiautomator2");
-        //capabilities.setCapability("recreateChromeDriverSessions", "true");
-        capabilities.setCapability("noReset", true);
-        capabilities.setCapability("fullReset", false);
-        capabilities.setCapability("showChromedriverLog", true);
-        //capabilities.setCapability("dontStopAppOnReset", true);
-        driver=new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-    }
-
 
     public static void beforeChrome() throws MalformedURLException {
 
@@ -134,7 +117,7 @@ public class TestXueQiuDemo {
         Thread.sleep(5000);
         locate("//*[@text='自选']");
 
-        (new TouchAction(driver)).press(100, 200).waitAction().moveTo(300, 400).release().perform();
+        //(new TouchAction(driver)).press(100, 200).waitAction().moveTo(300, 400).release().perform();
     }
 
     @Test
@@ -151,43 +134,14 @@ public class TestXueQiuDemo {
     }
 
 
-    @Test
-    public void testToast0() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        Thread.sleep(5000);
-        driver.findElementByAccessibilityId("Views").click();
-        //find locator action
-        //findRich("Views")
-        Thread.sleep(2000);
-        (new TouchAction(driver)).press(748, 2220).moveTo(748, 500).release().perform();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='Popup Menu']"))).click();
-        //driver.findElementByAccessibilityId("Popup Menu").click();
-        driver.findElementByAccessibilityId("Make a Popup!").click();
-        //locate("//*[contains(@text, 'MAKE')]").click();
-        Thread.sleep(2000);
-        driver.findElementByXPath("//*[contains(@text,'Search')]").click();
-
-        //String toastXPath="//*[@class='android.widget.Toast']";
-        String toastXPath="//*[@package='com.android.settings']";
-        System.out.println(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toastXPath))).getText());
-        System.out.println(driver.findElementByXPath(toastXPath).getText());
-        //System.out.println(locate(toastXPath).getText());
-        for(int i =0;i <10;i++){
-            int size=driver.findElementsByXPath(toastXPath).size();
-            System.out.println(size);
-            Thread.sleep(500);
-        }
-
-    }
-
     @Category({冒烟测试.class, 行情.class})
     @Test
     public void testscreenshot() throws IOException {
         driver.findElementByAccessibilityId("Views").click();
         saveScreen();
-        System.out.println(driver.startRecordingScreen());
+        //System.out.println(driver.startRecordingScreen());
         driver.findElementByAccessibilityId("Buttons").click();
-        System.out.println(driver.stopRecordingScreen());
+        //System.out.println(driver.stopRecordingScreen());
 
     }
 
@@ -232,9 +186,9 @@ public class TestXueQiuDemo {
         Thread.sleep(5000);
 
         (new TouchAction(driver))
-                .press((int)(width * 0.5), (int)(height * 0.5)).waitAction()
-                .waitAction(Duration.ofSeconds(1))
-                .moveTo((int)(width*0.5), (int)(height*0.8))
+                //.press((int)(width * 0.5), (int)(height * 0.5)).waitAction()
+                //.waitAction(Duration.ofSeconds(1))
+                //.moveTo((int)(width*0.5), (int)(height*0.8))
                 //.waitAction(Duration.ofSeconds(2))
                 .release().perform();
         WebDriverWait wait=new WebDriverWait(driver, 10);
@@ -257,77 +211,6 @@ public class TestXueQiuDemo {
             System.out.println(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='自选']"))).getLocation());
         }
         driver.findElementByXPath("//*[@text='自选']").click();
-    }
-
-
-    @Test
-    public void testToast() throws InterruptedException {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-
-
-        Dimension screenSize=driver.manage().window().getSize();
-
-        driver.findElementByAccessibilityId("Views").click();
-        Thread.sleep(2000);
-        (new TouchAction(driver))
-                .press( (int)(screenSize.width*0.5), (int)(screenSize.height*0.8))
-                .moveTo((int)(screenSize.width*0.5), (int)(screenSize.height*0.3))
-                .release()
-                .perform();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='Popup Menu']"))).click();
-        //driver.findElementByAccessibilityId("Popup Menu").click();
-        driver.findElementByAccessibilityId("Make a Popup!").click();
-        //locate("//*[contains(@text, 'MAKE')]").click();
-        Thread.sleep(2000);
-        driver.findElementByXPath("//*[contains(@text,'Search')]").click();
-
-        String toastXPath="//*[@class='android.widget.Toast']";
-        System.out.println(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toastXPath))));
-        System.out.println(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toastXPath))).getText());
-        System.out.println(driver.findElementByXPath(toastXPath).getText());
-        //System.out.println(locate(toastXPath).getText());
-        for(int i =0;i <10;i++){
-            int size=driver.findElementsByXPath(toastXPath).size();
-            System.out.println(size);
-            Thread.sleep(500);
-        }
-
-    }
-
-
-
-    @Test
-    public void testToast2() throws InterruptedException {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        Dimension screenSize=driver.manage().window().getSize();
-
-        driver.findElementByAccessibilityId("Views").click();
-        Thread.sleep(2000);
-        (new TouchAction(driver))
-                .press( (int)(screenSize.width*0.5), (int)(screenSize.height*0.8))
-                .moveTo((int)(screenSize.width*0.5), (int)(screenSize.height*0.3))
-                .release()
-                .perform();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@content-desc='Popup Menu']"))).click();
-        //driver.findElementByAccessibilityId("Popup Menu").click();
-        driver.findElementByAccessibilityId("Make a Popup!").click();
-        //locate("//*[contains(@text, 'MAKE')]").click();
-        Thread.sleep(2000);
-        driver.findElementByXPath("//*[contains(@text,'Search')]").click();
-
-        String toastXPath="//*[@class='android.widget.Toast']";
-        System.out.println(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toastXPath))));
-        System.out.println(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(toastXPath))).getText());
-        System.out.println(driver.findElementByXPath(toastXPath).getText());
-        //System.out.println(locate(toastXPath).getText());
-        for(int i =0;i <10;i++){
-            int size=driver.findElementsByXPath(toastXPath).size();
-            System.out.println(size);
-            Thread.sleep(500);
-        }
-
     }
 
 
