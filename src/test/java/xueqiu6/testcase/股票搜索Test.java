@@ -25,7 +25,8 @@ public class 股票搜索Test {
         return new Object[][]{
                 {"PDD", "拼多多"},
                 {"sogo", "搜狗"},
-                {"xiaomi", "小米集团-W"}
+                {"xiaomi", "小米集团-W"},
+                {"pingan", "平安公司"}
         };
     }
 
