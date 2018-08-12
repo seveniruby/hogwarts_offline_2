@@ -37,7 +37,7 @@ public class TestWeiXin {
 
         driver.get("https://sogou.com");
         System.out.println(driver.getPageSource());
-        driver.findElementByName("keyword").sendKeys("霍格沃兹测试学院");
+        driver.findElementByName("phone").sendKeys("霍格沃兹测试学院");
         driver.findElementByXPath("//*[@id='searchform']//*[@type='submit']").click();
 
     }
@@ -95,7 +95,7 @@ public class TestWeiXin {
         caps.setCapability("chromedriverExecutableDir", "/Users/seveniruby/projects/chromedriver/2.29");
         caps.setCapability("showChromedriverLog", true);
         //低版本的chromedriver在高版本的android上有个兼容性的bug，需要自己定制解决方案
-        caps.setCapability("adbPort", 5038);
+        //caps.setCapability("adbPort", 5038);
 
         //todo: appium java client 6.0.0 有多个bug，待修复
         ChromeOptions chromeOptions = new ChromeOptions();

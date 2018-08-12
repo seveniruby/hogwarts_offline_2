@@ -38,6 +38,7 @@ public class TestXueQiuDemo {
     static String apiActivity=".ApiDemos";
 
 
+    @BeforeClass
     public static void beforeClass() throws MalformedURLException {
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -46,8 +47,11 @@ public class TestXueQiuDemo {
         capabilities.setCapability("appPackage", "com.xueqiu.android");
         capabilities.setCapability("appActivity", ".view.WelcomeActivityAlias");
         capabilities.setCapability("automationName", "uiautomator2");
+        capabilities.setCapability("noReset", false);
+        capabilities.setCapability("chromedriverExecutableDir", "/Users/seveniruby/projects/chromedriver/2.20");
+
         driver=new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
     public void beforeXueqiu() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -253,9 +257,22 @@ public class TestXueQiuDemo {
 
 
     @Test
-    public void testWebView(){
+    public void testWebView() throws InterruptedException {
+        Thread.sleep(6000);
+        driver.findElementByXPath("//*[@text='跳过']").click();
+        Thread.sleep(2000);
         driver.findElementByXPath("//*[@text='交易']").click();
-        System.out.println(driver.getContextHandles());
+        Thread.sleep(3000);
+            System.out.println(driver.getContextHandles());
+            Thread.sleep(1000);
+            System.out.println(driver.getPageSource());
+            driver.getContextHandles().forEach(context->{
+                if(context.contains("WEBVIEW")){
+                    System.out.println(context);
+                    driver.context(context);
+                    System.out.println(driver.getPageSource());
+                }
+            });
     }
 
     @Test
